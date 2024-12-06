@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 103, 76, 255;
+  --background-end-rgb: 53, 42, 201;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 103, 76, 255;
+    --background-end-rgb: 53, 42, 201;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 240 50% 3%;
+    --foreground: 0 0% 98%;
+    --card: 240 40% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 40% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 270 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 40% 10%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 40% 10%;
+    --muted-foreground: 240 10% 70%;
+    --accent: 252 95% 65%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 40% 10%;
+    --input: 240 40% 10%;
+    --ring: 252 95% 65%;
+    --chart-1: 252 95% 65%;
+    --chart-2: 240 95% 65%;
+    --chart-3: 220 95% 65%;
+    --chart-4: 200 95% 65%;
+    --chart-5: 280 95% 65%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(5%, -5%) scale(1.05);
+  }
+  50% {
+    transform: translate(0, -10%) scale(0.95);
+  }
+  75% {
+    transform: translate(-5%, -5%) scale(1.05);
+  }
+}
+
+.glow-card {
+  @apply relative rounded-xl bg-card p-8;
+  background: linear-gradient(to bottom right, hsl(var(--card)), hsl(var(--card)));
+}
+
+.glow-card::before {
+  content: '';
+  @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-700;
+  background: radial-gradient(
+    1200px circle at var(--mouse-x) var(--mouse-y),
+    rgba(var(--background-start-rgb), 0.15),
+    transparent 40%
+  );
+}
+
+.glow-card::after {
+  content: '';
+  @apply absolute inset-px rounded-xl opacity-0 transition-opacity duration-700;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(var(--background-end-rgb), 0.2),
+    transparent 40%
+  );
+}
+
+.glow-card:hover::before,
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+.glow-card .content {
+  @apply relative z-10;
+}
+
+.footer-gradient {
+  background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+  height: 6px;
+  width: 100%;
+  position: absolute;
+  top: -6px;
+  left: 0;
+}
